@@ -178,10 +178,6 @@ networks:
 docker compose up -f compose.yaml --build
 ```
 
-## Libraries
-
-## Project Structure
-
 ## License
 
 Distributed under the MIT License. See LICENSE for more information.
