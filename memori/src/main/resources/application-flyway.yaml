@@ -1,0 +1,5 @@
+spring:
+  # https://dzone.com/articles/how-to-use-flyway-for-database-migration-in-spring
+  flyway:
+    enabled: true
+    baseline-on-migrate: true

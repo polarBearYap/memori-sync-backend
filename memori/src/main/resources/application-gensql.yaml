@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      jakarta:
+       persistence:
+         schema-generation:
+           scripts:
+             action: create
+             create-target: initial_schema.sql

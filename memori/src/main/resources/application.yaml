@@ -1,0 +1,51 @@
+logging:
+  file:
+    name: app.log
+  level:
+    root: INFO
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
+  datasource:
+    url: ${DB_JDBC_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        '[format_sql]': true
+        discriminator:
+          '[ignore_explicit_for_joined]': false
+  flyway:
+    enabled: false
+    clean-disabled: true
+    locations: classpath:db/migration/postgresql
+server:
+  port: 8443
+  ssl:
+    key-store: ${SSL_KEYSTORE_FILE_PATH}
+    key-store-password: ${SSL_KEYSTORE_PASSWORD}
+    keyStoreType: ${SSL_KEYSTORE_TYPE}
+    keyAlias: ${SSL_KEYSTORE_ALIAS}
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 2048
+memori:
+  firebase:
+    projectId: ${FIREBASE_PROJECT_ID}
+    projectNumber: ${FIREBASE_PROJECT_NUMBER}
+    googleApplicationCredentialsPath: ${GOOGLE_APPLICATION_CREDENTIALS}
+    appCheck:
+      enable: false
+      jwksEndpoint: https://firebaseappcheck.googleapis.com/v1/jwks
+      issuerEndpoint: https://firebaseappcheck.googleapis.com/
+      audienceEndpoint: projects/
+  fsrs:
+    httpUrl: ${FSRS_URL}
+    scheduleCardPath: ${FSRS_SCHEDULE_CARD_PATH}

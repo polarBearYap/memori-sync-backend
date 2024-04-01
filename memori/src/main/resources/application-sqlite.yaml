@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: 'jdbc:sqlite:memory:memori_test?cache=shared'
+    username: memori_test
+    password: memori_test
+    driverClassName: org.sqlite.JDBC
+  jpa:
+    database-platform: org.hibernate.community.dialect.SQLiteDialect
+    hibernate:
+      ddl-auto: create-drop
+  flyway:
+    enabled: false
+    locations: classpath:db/migration/sqlite

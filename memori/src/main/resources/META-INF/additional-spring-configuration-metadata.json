@@ -1,0 +1,62 @@
+{"properties": [
+  {
+    "name": "memori.firebase.projectId",
+    "type": "java.lang.String",
+    "description": "Sets the project id of the firebase."
+  },
+  {
+    "name": "memori.firebase.projectNumber",
+    "type": "java.lang.String",
+    "description": "Sets the project number of the firebase."
+  },
+  {
+    "name": "memori.firebase.googleApplicationCredentialsPath",
+    "type": "java.lang.String",
+    "description": "Sets the file path of the google application credentials."
+  },
+  {
+    "name": "memori.firebase.useFirebaseEmulator",
+    "type": "java.lang.String",
+    "description": "Sets the flag whether to enable firebase local emulator."
+  },
+  {
+    "name": "memori.firebase.emulator.host",
+    "type": "java.lang.String",
+    "description": "Sets the firebase auth local emulator host."
+  },
+  {
+    "name": "memori.firebase.emulator.enable",
+    "type": "java.lang.Boolean",
+    "description": "Sets the flag whether to enable firebase local emulator."
+  },
+  {
+    "name": "memori.firebase.appCheck.enable",
+    "type": "java.lang.Boolean",
+    "description": "Sets the flag whether to enable firebase app check."
+  },
+  {
+    "name": "memori.firebase.appCheck.jwksEndpoint",
+    "type": "java.lang.String",
+    "description": "Sets the url of the firebase app check jwks endpoint."
+  },
+  {
+    "name": "memori.firebase.appCheck.issuerEndpoint",
+    "type": "java.lang.String",
+    "description": "Sets the url of the firebase app check issuer endpoint."
+  },
+  {
+    "name": "memori.firebase.appCheck.audienceEndpoint",
+    "type": "java.lang.String",
+    "description": "Sets the url of the firebase app check audience endpoint."
+  },
+  {
+    "name": "memori.fsrs.httpUrl",
+    "type": "java.lang.String",
+    "description": "Sets the url of the FSRS django API."
+  },
+  {
+    "name": "memori.fsrs.scheduleCardPath",
+    "type": "java.lang.String",
+    "description": "Sets the API path of the FSRS django API."
+  }
+]}

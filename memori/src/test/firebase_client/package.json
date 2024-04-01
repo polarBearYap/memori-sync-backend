@@ -1,0 +1,14 @@
+{
+  "name": "firebase_client",
+  "version": "1.0.0",
+  "description": "Firebase client to generate id token for testing purposes.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yap Jheng Khin",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^10.8.0"
+  }
+}
