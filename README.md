@@ -7,8 +7,11 @@ Spring backend for Memori app's cloud sync.
 3. Firebase Auth Setup
 4. Firebase local emulator
 5. Docker
+6. Memori Django Api [(links)](https://github.com/polarBearYap/memori-fsrs-api/tree/main)
 
 ## Getting Started
+1. To debug and test the application, Please read and follow through the following sections in order.
+
 ### Firebase
 1. This application requires Firebase credentials to validate Firebase users at every API request.
 2. Create a new Firebase project and enable Firebase Auth.
@@ -80,7 +83,7 @@ Spring backend for Memori app's cloud sync.
         "FIREBASE_PROJECT_NUMBER": "<your-firebase-project-number>",
         "GOOGLE_APPLICATION_CREDENTIALS": "/absolute-file-path/firebase-config.json", // Must be an absolute path, should be located at project root
         "FIREBASE_AUTH_EMULATOR_HOST": "127.0.0.1:9099",
-        "DB_JDBC_URL": "jdbc:postgresql://localhost:5432/memori_dev",
+        "DB_JDBC_URL": "jdbc:postgresql://localhost:5432/<your-db-name>",
         "DB_USERNAME": "<your-db-username>",
         "DB_PASSWORD": "<your-db-password>",
         "NODEJS_CLIENT_REL_PATH": "src/test/firebase_client/main.js",
@@ -91,8 +94,82 @@ Spring backend for Memori app's cloud sync.
     }
 }
 ```
-5. You can now debug and test application in VS code.
+5. To run and debug the application in VS code, do ensure that the Memori Django Api is running as well.
+
 ### Docker
+1. The steps below show how to run both Memori Sync backend and Memori Django Api in Docker.
+2. First, download the source code of Memori Django Api and setup accordingly.
+3. Arrange the source code folder as shown below. The `fsrs_api` folder contains Memori Django Api source code while the `memori_backend` contains this project source code. Create two empty folders named `data` and `logs`.
+- compose.yaml
+- data
+- fsrs_api
+- logs
+- memori_backend
+4. Below is the content of compose.yaml. Most environment variables are similar to the previous section.
+```
+services:
+  memori_backend:
+    build: ./memori_backend
+    image: memori_backend:1.0
+    ports:
+      - 8080:8080
+      - 8443:8443
+    environment:
+      - FIREBASE_PROJECT_ID=your-firebase-project-id
+      - FIREBASE_PROJECT_NUMBER=your-firebase-project-number
+      - GOOGLE_APPLICATION_CREDENTIALS=/app/firebase-config.json
+      # You may comment the SSL environment variables for local development
+      - SSL_KEYSTORE_FILE_PATH=/app/keystore.p12
+      - SSL_KEYSTORE_PASSWORD=your-key-store-password
+      - SSL_KEYSTORE_ALIAS=your-key-store-alias
+      - SSL_KEYSTORE_TYPE=PKCS12
+      # You may comment the Firebase emulator host for production release
+      - FIREBASE_AUTH_EMULATOR_HOST=127.0.0.1:9099
+      - DB_JDBC_URL=jdbc:postgresql://memori-db:5432/your-db-name
+      - DB_USERNAME=your-db-username
+      - DB_PASSWORD=your-db-password
+      - SPRING_PROFILES_ACTIVE=flyway
+      - FSRS_URL=http://fsrs-api:8000
+      - FSRS_SCHEDULE_CARD_PATH=scheduleusercard
+      # You may comment the Java option below for production release
+      - JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8080"
+    networks:
+      - memori-network
+    depends_on:
+      - fsrs-api
+  fsrs-api:
+    build: ./fsrs_api
+    image: fsrs_api:1.0
+    ports:
+      - "8000:8000"
+    volumes:
+      - <your-absolute-path>/logs:/app/logs
+    networks:
+      - memori-network
+    depends_on:
+      - memori-db
+  memori-db:
+    image: postgres:15.6-alpine3.18
+    restart: always
+    ports:
+      - "5433:5432"
+    volumes:
+      - <your-absolute-path>/data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=your-db-name
+      - POSTGRES_USER=your-db-username
+      - POSTGRES_PASSWORD=your-db-password
+    networks:
+      - memori-network
+
+networks:
+  memori-network:
+    driver: bridge
+```
+5. Run the command below to build and run the containers. Optionally, specify `-d` to run in detach mode.
+```
+docker compose up -f compose.yaml --build
+```
 
 ## Libraries
 
