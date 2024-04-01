@@ -1,6 +1,13 @@
 # Memori Sync Backend
 Spring backend for Memori app's cloud sync.
 
+## Table of Contents
+- [Dev Requirements](#dev-requirements)
+- [Getting Started](#getting-started)
+  - [Firebase](#firebase)
+  - [IDE setup](#ide-setup)
+  - [Docker](#docker)
+
 ## Dev Requirements
 1. OpenJDK version 21
 2. PostgreSQL
